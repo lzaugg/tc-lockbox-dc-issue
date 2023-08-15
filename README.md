@@ -11,7 +11,7 @@ Context:
 - offline update through lockbox with docker-compose only
 - access to the internet from the SoM is blocked 
 
-# Reproduce artefacts
+## Reproduce artefacts
 
 1. build combined Tezi image (see `build.sh`)
 2. Make sure to have your Torizon platform credentials ready in `.credentials.zip` (or adapt `build.sh` accordingly)
