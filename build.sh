@@ -13,13 +13,16 @@ OUTPUT_LOCKBOX_APPS_DIFFERENT_HASH=tc-lockbox-dc-issue-lockbox-apps-different-ha
 
 mkdir -p cache
 
-source tcb-env-setup.sh -t 3.7.0-lza1 -n
+# patched version to support bridged network
+# source tcb-env-setup-lza1.sh -t 3.7.0-lza1 -n
+
+source tcb-env-setup.sh -t 3.7.0
 
 function create_combined () {
     rm -rf cache/$OUTPUT_IMAGE_COMBINED
     rm -rf cache/bundle
     rm -rf cache/$OUTPUT_IMAGE
-    torizoncore-builder build --set OUTPUT_IMAGE=$OUTPUT_IMAGE
+    torizoncore-builder build --file tcbuild-6.3.0-monthly-8.yaml --set OUTPUT_IMAGE=$OUTPUT_IMAGE
     torizoncore-builder bundle docker-compose-combined.yml --platform linux/arm64 --bundle-directory cache/bundle
     torizoncore-builder combine --bundle-directory cache/bundle cache/tc-lockbox-dc-issue-Tezi cache/$OUTPUT_IMAGE_COMBINED
 }

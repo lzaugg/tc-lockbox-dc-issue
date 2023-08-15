@@ -192,7 +192,7 @@ remote_tags=$(curl -L -s 'https://registry.hub.docker.com/v2/namespaces/torizon/
               sed -n -e 's/"name":"\([^"]\+\)"/\1/p')
 # Get list of image tags locally
 # TODO RegEx Fails on MacOS. This one works: sed -En 's/^.*torizoncore-builder[[:space:]]+([0-9]+).*$/\1/p'
-local_tags=$(docker images torizon/torizoncore-builder | sed -n 's/^.*torizoncore-builder\s\+\([0-9]\+\).*$/\1/p')
+local_tags=$(docker images lzaugg/torizoncore-builder | sed -n 's/^.*torizoncore-builder\s\+\([0-9]\+\).*$/\1/p')
 
 # Determine the tag with the greatest numerical major revision
 get_latest_tag () {
@@ -262,7 +262,7 @@ echo -e "Setting up TorizonCore Builder with version $chosen_tag.\n"
 if [[ $pull_remote == true ]]
 then
     echo -e "Pulling TorizonCore Builder..."
-    if docker pull torizon/torizoncore-builder:"$chosen_tag"; then
+    if docker pull lzaugg/torizoncore-builder:"$chosen_tag"; then
         echo -e "Done!\n"
     else
         echo "Error: could not pull TorizonCore Builder from Docker Hub!"
@@ -286,7 +286,7 @@ function tcb_dynamic_params() {
 # TODO Not compatible with ZSH
 export -f tcb_dynamic_params
 
-alias torizoncore-builder='docker run --rm -it'"$volumes"'-v "$(pwd)":/workdir -v '"$storage"':/storage -v /var/run/docker.sock:/var/run/docker.sock'"$network"'$(tcb_dynamic_params) '"$*"' torizon/torizoncore-builder:'"$chosen_tag"
+alias torizoncore-builder='docker run --rm -it'"$volumes"'-v "$(pwd)":/workdir -v '"$storage"':/storage -v /var/run/docker.sock:/var/run/docker.sock'"$network"'$(tcb_dynamic_params) '"$*"' lzaugg/torizoncore-builder:'"$chosen_tag"
 
 echo "Setup complete! TorizonCore Builder is now ready to use."
 
