@@ -1,0 +1,7 @@
+services:
+  http:
+    image: lzaugg/tc-lockbox-dc-issue-http@sha256:ec64b6f369eb82fb20479c80182589d07389ede156fb44d42d8f5a0e8c442ac4
+    ports:
+    - 3000:3000
+    restart: on-failure
+version: '2.4'

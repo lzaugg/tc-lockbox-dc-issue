@@ -1,0 +1,24 @@
+input:
+  easy-installer:
+    toradex-feed:
+      version: "6.3.0"
+      release: monthly
+      machine: colibri-imx8x
+      distro: torizon
+      variant: torizon-core-docker
+      build-number: "8"
+      build-date: "202306"
+
+customization:
+  filesystem:
+    - root-fs-overlay/enable-lockbox/
+
+output:
+  easy-installer:
+    local: cache/${OUTPUT_IMAGE?Please provide OUTPUT_IMAGE}
+    autoreboot: true
+    name: tc-lockbox-dc-issue
+    description: tc-lockbox-dc-issue
+    provisioning:
+      mode: offline
+      shared-data: shared-data.tar.gz
