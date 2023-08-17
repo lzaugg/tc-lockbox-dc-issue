@@ -4,6 +4,7 @@ shopt -s expand_aliases
 
 OUTPUT_IMAGE=tc-lockbox-dc-issue-Tezi
 OUTPUT_IMAGE_COMBINED=tc-lockbox-dc-issue-Tezi-combined
+OUTPUT_IMAGE_COMBINED_IN_ONE=tc-lockbox-dc-issue-Tezi-combined-in-one
 
 TP_LOCKBOX_NAME_SAME_HASH=tc-lockbox-dc-issue-apps-same-hash
 TP_LOCKBOX_NAME_DIFFERENT_HASH=tc-lockbox-dc-issue-apps-different-hash
@@ -26,6 +27,12 @@ function create_combined () {
     torizoncore-builder bundle docker-compose-combined.yml --platform linux/arm64 --bundle-directory cache/bundle
     torizoncore-builder combine --bundle-directory cache/bundle cache/tc-lockbox-dc-issue-Tezi cache/$OUTPUT_IMAGE_COMBINED
 }
+
+function create_combined_in_one () {
+    rm -rf cache/$OUTPUT_IMAGE_COMBINED_IN_ONE
+    torizoncore-builder build --file tcbuild-6.3.0-monthly-8-combined.yaml --set OUTPUT_IMAGE=$OUTPUT_IMAGE_COMBINED_IN_ONE
+}
+
 function push_packages () {
     #torizoncore-builder platform push --credentials=.credentials.zip --package-name=tc-lockbox-dc-issue --package-version=0.1.0 base
     torizoncore-builder platform push --canonicalize --credentials=.credentials.zip --package-name=tc-lockbox-dc-issue.lock.yml --package-version=same-hash docker-compose-lockbox-same-hash.yml
@@ -38,5 +45,6 @@ function create_lockbox () {
 }
 
 create_combined
+#create_combined_in_one
 #push_packages
 #create_lockbox
